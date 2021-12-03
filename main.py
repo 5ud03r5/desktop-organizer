@@ -23,7 +23,11 @@ def onedrivevalidator(onedrive_dir, current_dir):
 
 dir_to_desktop, desktop = onedrivevalidator(onedrive_dir, current_dir)
 path = os.path.join(os.path.join(dir_to_desktop, desktop))
-print(path)
+
+
+desktop_bin = os.path.join(path, 'Desktop_bin')
+if not os.path.exists(desktop_bin):
+            os.makedirs(desktop_bin)
 
 lista = os.listdir(path)
 reg = '\.[a-zA-Z]{1,3}'
@@ -35,8 +39,10 @@ for file in lista:
         reg = re.search('[a-zA-Z]{1,3}', extension)
         reg = reg.group(0)
         
-        path_pem = os.path.join(os.path.join(path, reg))
+        path_pem = os.path.join(os.path.join(desktop_bin, reg))
+        
         path_file = os.path.join(os.path.join(path, file))
+        
         
         if not os.path.exists(path_pem):
             os.makedirs(path_pem)
@@ -44,9 +50,7 @@ for file in lista:
         path_pem = os.path.join(os.path.join(path_pem, file))
         os.replace(path_file, path_pem)
 
-desktop_bin = os.path.join(path, 'Desktop_bin')
-if not os.path.exists(desktop_bin):
-            os.makedirs(desktop_bin)
+
 
 for file in lista:
     path_file = os.path.join(path, file)
