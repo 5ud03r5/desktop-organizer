@@ -25,7 +25,6 @@ for file in lista:
     
     name, extension = os.path.splitext(file)
     path_file = os.path.join(os.path.join(path, file))
-    print(path_file)
     if file.endswith(extension) and extension != '.lnk' and extension:
         
         reg = re.search('\w+', extension)
