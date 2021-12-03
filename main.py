@@ -2,26 +2,24 @@ import os
 import re
 
 
-current_dir = os.environ['USERPROFILE']
-onedrive_dir = os.environ['ONEDRIVECONSUMER']
 
-def onedrivevalidator(onedrive_dir, current_dir):
-    dir_to_desktop = ''
-    if 'ONEDRIVECONSUMER' in os.environ:
-        dir_to_desktop = onedrive_dir
-    else:
-        dir_to_desktop = current_dir
 
-    for file in os.listdir(dir_to_desktop):
-            if file == 'Pulpit':
-                desktop = 'Pulpit'
-            elif file == 'Desktop':
-                desktop == 'Desktop'
+dir_to_desktop = ''
+if 'ONEDRIVECONSUMER' in os.environ:
+    dir_to_desktop = os.environ['ONEDRIVECONSUMER']
+else:
+    dir_to_desktop = os.environ['USERPROFILE']
+
+for file in os.listdir(dir_to_desktop):
+        if file == 'Pulpit':
+            desktop = 'Pulpit'
+        elif file == 'Desktop':
+            desktop == 'Desktop'
     
-    return dir_to_desktop, desktop
+    
 
 
-dir_to_desktop, desktop = onedrivevalidator(onedrive_dir, current_dir)
+
 path = os.path.join(os.path.join(dir_to_desktop, desktop))
 
 
