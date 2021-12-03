@@ -24,15 +24,13 @@ reg = '\.[a-zA-Z]{1,3}'
 for file in lista:
     
     name, extension = os.path.splitext(file)
+    path_file = os.path.join(os.path.join(path, file))
+    print(path_file)
     if file.endswith(extension) and extension != '.lnk' and extension:
         
         reg = re.search('\w+', extension)
-        reg = reg.group(0)
-        
+        reg = reg.group(0)        
         path_pem = os.path.join(os.path.join(desktop_bin, reg))
-        
-        path_file = os.path.join(os.path.join(path, file))
-        
         
         if not os.path.exists(path_pem):
             os.makedirs(path_pem)
@@ -42,8 +40,17 @@ for file in lista:
             os.replace(path_file, path_pem)
         except PermissionError:
             pass
-
-
+    
+    elif os.path.isfile(path_file) and not extension:
+        
+        path_pem = os.path.join(os.path.join(desktop_bin, 'Other_files'))
+        if not os.path.exists(path_pem):
+            os.makedirs(path_pem)
+        path_pem = os.path.join(os.path.join(path_pem, file))
+        try:
+            os.replace(path_file, path_pem)
+        except PermissionError:
+            pass
 
 for file in lista:
     path_file = os.path.join(path, file)
