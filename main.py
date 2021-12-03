@@ -1,9 +1,6 @@
 import os
 import re
 
-
-
-
 dir_to_desktop = ''
 if 'ONEDRIVECONSUMER' in os.environ:
     dir_to_desktop = os.environ['ONEDRIVECONSUMER']
@@ -14,14 +11,9 @@ for file in os.listdir(dir_to_desktop):
         if file == 'Pulpit':
             desktop = 'Pulpit'
         elif file == 'Desktop':
-            desktop == 'Desktop'
-    
-    
-
-
+            desktop = 'Desktop'
 
 path = os.path.join(os.path.join(dir_to_desktop, desktop))
-
 
 desktop_bin = os.path.join(path, 'Desktop_bin')
 if not os.path.exists(desktop_bin):
@@ -34,7 +26,7 @@ for file in lista:
     name, extension = os.path.splitext(file)
     if file.endswith(extension) and extension != '.lnk' and extension:
         
-        reg = re.search('[a-zA-Z]{1,3}', extension)
+        reg = re.search('\w+', extension)
         reg = reg.group(0)
         
         path_pem = os.path.join(os.path.join(desktop_bin, reg))
@@ -46,7 +38,10 @@ for file in lista:
             os.makedirs(path_pem)
             
         path_pem = os.path.join(os.path.join(path_pem, file))
-        os.replace(path_file, path_pem)
+        try:
+            os.replace(path_file, path_pem)
+        except PermissionError:
+            pass
 
 
 
